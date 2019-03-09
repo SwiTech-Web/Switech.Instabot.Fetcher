@@ -14,9 +14,10 @@ class MysqlConnection:
         self.connection = mysql_connection
 
     def get_all_users(self):
-        with self.connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM table")
-            result = cursor.fetchall()
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT ps_insta, pwd_insta, hashtag FROM user")
+        result = cursor.fetchall()
+        cursor.close()
         return result
 
     def close_connection(self):

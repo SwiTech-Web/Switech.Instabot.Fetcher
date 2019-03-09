@@ -13,21 +13,23 @@ class SqliteConnection:
         return
 
     def init_database(self):
-        with self.connection.cursor() as cursor:
-            cursor.execute("DROP TABLE IF EXISTS users")
-            cursor.execute("CREATE TABLE users(username, password, hashtag)")
-            self.commit_change()
+        cursor = self.connection.cursor()
+        cursor.execute("DROP TABLE IF EXISTS users")
+        cursor.execute("CREATE TABLE users(username, password, hashtag)")
+        self.commit_change()
+        cursor.close()
         return
 
     def record_row(self, row, commit=False):
-        with self.connection.cursor() as cursor:
-            cursor.execute("INSERT INTO users VALUES ('{username}', '{password}', '{hashtag}')".format(
-                username=row[0],
-                password=row[1],
-                hashtag=row[2]
-            ))
+        cursor = self.connection.cursor()
+        cursor.execute("INSERT INTO users VALUES ('{username}', '{password}', '{hashtag}')".format(
+            username=row[0],
+            password=row[1],
+            hashtag=row[2]
+        ))
         if commit:
             self.commit_change()
+        cursor.close()
         return
 
     def close_connection(self):

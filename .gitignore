@@ -28,5 +28,7 @@
 test.py
 *.pyc
 
+*.sqlite
+
 config.ini
 geckodriver.log
