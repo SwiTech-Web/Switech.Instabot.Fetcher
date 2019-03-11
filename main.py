@@ -1,7 +1,7 @@
 import os
 import time
 import plugins.db_mysql as mysql
-import plugins.db_sqlite as sqlite
+import plugins.db_export as export
 import plugins.utils as utils
 
 from plugins.PyLogger.pylogger import pylogger
@@ -14,7 +14,7 @@ def main():
     pylogger.info("Script Started")
     start = time.time()
     rows = mysql.fetch_data_from_repository()
-    sqlite.update_data_sqlite(rows)
+    export.update_user_repository(rows[0])
     end = time.time()
     second_elapsed = round(end - start)
     time_elapsed = utils.second_to_format(second_elapsed)
